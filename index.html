@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>索取資訊表單</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: sans-serif; max-width: 400px; margin: auto;">
+
+<h2>留下資料取得資訊</h2>
+
+<form id="form">
+  <input name="name" placeholder="Your Name" required>
+ <input name="email" type="email" placeholder="Email" required
+       autocomplete="email" inputmode="email">
+  <!-- 安全：honeypot / ts / token（與 GAS 對應） -->
+  <input name="hp" style="display:none" tabindex="-1" autocomplete="off"> <!-- honeypot -->
+  <input type="hidden" name="ts">     <!-- 載入時間戳（毫秒） -->
+  <input type="hidden" name="token">  <!-- 與 APP_TOKEN 對應 -->
+  <button type="submit">Submit!</button>
+</form>
+
+<!-- <script type="module" src="/src/main.js">
+const scriptURL = "https://script.google.com/macros/s/AKfycbzFX1YGARu6YRtDGHlZLWV5O0fgM5cX3e9rdtG4UvkyWqSVK0uYwsI1Zaj_kX50Y9-9GA/exec";
+const APP_TOKEN = "CHANGE_ME_MINI_TOKEN"; // 與後端一致
+
+// 將全形符號、零寬字元、NBSP 轉成正確格式
+function normalizeEmail(v) {
+  if (!v) return "";
+  return String(v)
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")   // 零寬字元
+    .replace(/\u00A0/g, " ")                 // NBSP -> space
+    .replace(/^[\s]+|[\s]+$/g, "")           // trim
+    // 全形符號轉半形
+    .replace(/＠/g, "@")                     // U+FF20
+    .replace(/[．｡]/g, ".")                  // U+FF0E, U+FF61
+    // 其他常見全形（保險起見）
+    .replace(/，/g, ",")
+    .replace(/；/g, ";")
+    .toLowerCase();
+}
+
+async function postWithTimeout(url, options={}, timeoutMs=6000) {
+  const ctrl = new AbortController();
+  const id = setTimeout(() => ctrl.abort('timeout'), timeoutMs);
+  try { return await fetch(url, { ...options, signal: ctrl.signal }); }
+  finally { clearTimeout(id); }
+}
+
+// 在使用者輸入時就正規化，避免原生驗證報錯
+const emailEl = document.querySelector('input[name="email"]');
+["input","change","blur"].forEach(evt => {
+  emailEl.addEventListener(evt, () => {
+    const v = normalizeEmail(emailEl.value);
+    if (v !== emailEl.value) emailEl.value = v;
+    // 清除瀏覽器的錯誤訊息（若已經被判為錯）
+    emailEl.setCustomValidity(
+      emailEl.validity.typeMismatch ? "Please enter a valid email address without full-width characters or spaces." : ""
+    );
+  });
+});
+
+// 設定 ts/token
+window.addEventListener("load", () => {
+  document.querySelector('input[name="ts"]').value = Date.now();
+  document.querySelector('input[name="token"]').value = APP_TOKEN;
+});
+
+
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const body = new URLSearchParams();
+  fd.forEach((v, k) => body.append(k, v));
+
+  try {
+    const res  = await postWithTimeout(scriptURL, { method: "POST", body });
+    const text = await res.text();
+    const json = (() => { try { return JSON.parse(text); } catch { return { status:"error", msg:text }; } })();
+
+    if (json.status === "success") {
+      alert("Your submission was successful!");
+      e.target.reset();
+      return;
+    }
+    if (res.status === 202) {
+      alert("We received your request. Processing may take a moment.");
+      e.target.reset();
+      return;
+    }
+    alert("Something went wrong: " + (json.msg || res.status));
+  } catch (err) {
+    alert("Could not be submitted: " + err.message);
+  }
+});
+</script> -->
+
+</body>
+</html>
