@@ -44,13 +44,19 @@ export default async function handler(req, res) {
     const text = await r.text();
 
     // --- 嘗試回 JSON 給前端 ---
-    try {
-      const data = JSON.parse(text);
-      res.status(200).json(data);
-    } catch {
-      // 若 GAS 傳回純文字或 HTML
-      res.status(502).json({ status: 'error', msg: 'Invalid JSON from GAS', raw: text });
-    }
+   // --- 嘗試回 JSON 給前端 ---
+try {
+  const data = JSON.parse(text);
+  res.status(200).json(data);
+} catch {
+  // ✅ 不回 502，改回 200 + 結構化錯誤
+  res.status(200).json({
+    status: 'error',
+    msg: 'Upstream (GAS) did not return JSON',
+    raw: text
+  });
+}
+
   } catch (err) {
     res.status(502).json({ status: 'error', msg: String(err?.message || err) });
   }
