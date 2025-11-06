@@ -43,7 +43,6 @@ export default async function handler(req, res) {
 
     const text = await r.text();
 
-    // --- 嘗試回 JSON 給前端 ---
    // --- 嘗試回 JSON 給前端 ---
 try {
   const data = JSON.parse(text);

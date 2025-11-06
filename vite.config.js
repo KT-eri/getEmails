@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 const GAS_PATH = '/api/submit';
-const GAS_EXEC = '/macros/s/AKfycbwJfJQ3Jd4U8CbgzTJcFOSQADWCUA0_SnQjltSxmqhIKVzKTrnVL2BDa1ojh9fSBFXFug/exec';
+const GAS_EXEC = '/macros/s/AKfycbyPmc435I_lXBJPF-A654AlRc56WOunyiCPoMObDpwnuTxbu-tioYOLqITsfOPEjo_s0g/exec';
 
 export default defineConfig({
   server: {
