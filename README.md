@@ -1,9 +1,3 @@
-根據你提供的程式碼和專案結構，這個 `getEmails` 專案並非單純的 Email 爬蟲，而是一個專為 **KING TONY** 品牌打造的行銷活動落地頁（Landing Page），旨在透過活動收集潛在客戶的電子郵件。
-
-以下是為你生成的專案 `README.md`：
-
----
-
 # KING TONY Friends S4 Landing Page (getEmails)
 
 這個專案是一個響應式的行銷活動網頁，主要功能是推廣 **KING TONY Friends Season 4** 系列內容，並透過彈窗（Modal）與表單引導使用者留下電子郵件以獲取專屬優惠。
